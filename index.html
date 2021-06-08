@@ -37,6 +37,23 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script>
+        if (typeof m !== 'undefined') {
+            m.getApi({
+                version: 'v1'
+            }).then(function(glia) {
+                glia.addEventListener(glia.EVENTS.ENGAGEMENT_START, (engagement) => {
+                    engagement.addEventListener(
+                        engagement.EVENTS.CUSTOM_COMMAND,
+                        (customCommand) => {
+                            console.log(customCommand.properties.message);
+                        }
+                    );
+                });
+            });
+        } else {
+            console.log('"m" is undefined');
+        }
+
         document.addEventListener('DOMContentLoaded', () => M.Sidenav.init(document.getElementById('hamburger')));
     </script>
 </body>
