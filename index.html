@@ -40,10 +40,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             M.Sidenav.init(document.getElementById('hamburger'));
             if (typeof sm !== 'undefined') {
+                console.log('Attaching event handlers');
                 sm.getApi({
                     version: 'v1'
-                }).then(function(glia) {
+                }).then((glia) => {
+                    console.log('Glia instance', glia);
+
                     glia.addEventListener(glia.EVENTS.ENGAGEMENT_START, (engagement) => {
+                        console.log('Engagement', engagement);
                         engagement.addEventListener(
                             engagement.EVENTS.CUSTOM_COMMAND,
                             (customCommand) => {
@@ -52,6 +56,7 @@
                         );
                     });
                 });
+                console.log('End of story');
             } else {
                 console.log('"sm" is undefined');
             }
